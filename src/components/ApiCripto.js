@@ -49,21 +49,21 @@ const App = () => {
 
   const [refreshing, setRefreshing] = useState(false);
 
-  const loadData = async () => { //aqui se carga la api con la propiedad fetch para obtener recursos de forma asíncrona por la red, 
-    const res = await fetch(     //en este caso los datos de las coins.
+  const loadData = async () => {
+    //aqui se carga la api con la propiedad fetch para obtener recursos de forma asíncrona por la red,
+    const res = await fetch(
+      //en este caso los datos de las coins.
       "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=100&page=1&sparkline=false"
     );
 
-
-    const data = await res.json();  //creamos la const data que almacena la respuesta(res) de la API tomada por el fetch en linea 52-54 
-    setCoins(data);                 //y las carga al useState de coins de linea 46.
+    const data = await res.json(); //creamos la const data que almacena la respuesta(res) de la API tomada por el fetch en linea 52-54
+    setCoins(data); //y las carga al useState de coins de linea 46.
   };
 
-
-  useEffect(() => { //llamamos la funcion loadData de linea 52 y cuadno cargue la APP trae todos los objetos de la APi
+  useEffect(() => {
+    //llamamos la funcion loadData de linea 52 y cuadno cargue la APP trae todos los objetos de la APi
     loadData();
   }, []);
-
 
   return (
     <View style={styles.container}>
@@ -83,19 +83,18 @@ const App = () => {
         data={coins.filter(
           //recibe como dato el arreglo "coins"
           (coin) =>
-            coin.name.toLowerCase().includes(search) || 
+            coin.name.toLowerCase().includes(search) ||
             coin.symbol.toLowerCase().includes(search)
         )}
         renderItem={({ item }) => {
           //devuelve uno a uno cada elemento del arreglo "coins", es decir porciones de codigo para cada uno de los objetos que se esten recorriendo.
           return <CoinItem coin={item} />; //devolvemos el coinItem, el cual fue creado en otro archivo para darle estilos, luego llamamos a CoinItem
-        }}                                 //definido en linea 12 el cual contiene todos los datos que se muestran en pantalla, tales como name, symbol, etc.-
-        showsVerticalScrollIndicator={false}
+        }} //definido en linea 12 el cual contiene todos los datos que se muestran en pantalla, tales como name, symbol, etc.-
         refreshing={refreshing} //arranca inicialmente en false, el cual esta definido en el useState de linea 50
         onRefresh={async () => {
           setRefreshing(true); //Refresca los precios de las coins, como es asincrono se usa async.
           await loadData(); //traemos los datos de nuevo con loadData
-          setRefreshing(false);//una vez traido los datos se establece en false nuevamente
+          setRefreshing(false); //una vez traido los datos se establece en false nuevamente
         }}
       />
     </View>

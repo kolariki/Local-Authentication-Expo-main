@@ -2,16 +2,15 @@ import React from 'react';
 import { SafeAreaView, StyleSheet, TextInput, Image, View, Button, Text, TouchableOpacity } from 'react-native';
 import CardSVG from '../components/ApiCripto';
 
-export default function PaymentScreen({setIsAuthenticated}) { //retorna el view una vez que logeamos.Llamamos aqui y en el onPress la prop {SetIsAuthenticate} seteada en APP.js, para que nos rediriga al login.
+export default function CriptoScreen({setIsAuthenticated}) { //retorna el view una vez que logeamos.Llamamos aqui y en el onPress la prop {SetIsAuthenticate} seteada en APP.js, para que nos rediriga al login.
     return (
         
         <View style={styles.container}>
             <CardSVG />
-            
             <TouchableOpacity 
                 onPress={() => setIsAuthenticated(false)}
                 style={styles.btn}>
-                <Text style={styles.text}>Log out</Text>
+                <Text style={styles.text}>Salir</Text>
             </TouchableOpacity>
         </View>
       );
